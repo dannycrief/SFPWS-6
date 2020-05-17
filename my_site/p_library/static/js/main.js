@@ -13,7 +13,7 @@ function setVisible(selector, visible) {
 
 onReady(function () {
     setVisible('main', true);
-    setVisible('.preloader-wrapper.big.active', false);
+    setVisible('.preloader', false);
 });
 
 $(document).ready(function () {
