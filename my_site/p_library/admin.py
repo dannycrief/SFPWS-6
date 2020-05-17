@@ -23,6 +23,7 @@ class BookAdmin(admin.ModelAdmin):
         'copy_count',
         'redaction',
         'reader',
+        'image'
     )
 
 

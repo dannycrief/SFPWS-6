@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,11 +8,10 @@
     <title>Title</title>
 </head>
 <body>
-Добро пожаловать в {{ title }} <br>
-Тут собрано {{ books|length }} книг из моей личной коллекции
 <table class="table table-bordered">
     <thead class="thead-dark">
     <tr>
+        <th scope="col">Image</th>
         <th scope="col">Book</th>
         <th scope="col">ISBN</th>
         <th scope="col">Description</th>
@@ -21,13 +21,16 @@
         <th scope="col">Copy Count</th>
         <th scope="col">Redaction</th>
         <th scope="col">Reader</th>
-        <th scope="col">Add/Remove Count</th>
+        <th scope="col">Increase/Decrease Count</th>
     </tr>
     </thead>
     <tbody>
     {% for book in books %}
         <tr>
-            <td scope="row">{{ book.title }}</td>
+            <td scope="row">
+                <img src="{{ book.image.url }}" alt="Book image" style="max-width: 3rem">
+            </td>
+            <td>{{ book.title }}</td>
             <td>{{ book.ISBN }}</td>
             <td>{{ book.description }}</td>
             <td>{{ book.year_release }}</td>
@@ -35,7 +38,13 @@
             <td>{{ book.author.country }}</td>
             <td>{{ book.copy_count }}</td>
             <td>{{ book.redaction }}</td>
-            <td>{{ book.reader }}</td>
+            <td>
+                {% if book.reader %}
+                    {{ book.reader }}
+                {% else %}
+                    Book is free
+                {% endif %}
+            </td>
             <td>
                 <form action="/index/book_increment/" method="post" enctype="multipart/form-data">
                     {% csrf_token %}

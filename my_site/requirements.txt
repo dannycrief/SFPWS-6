@@ -1,3 +1,2 @@
-django
-psycopg2
+django==3.0.6
 dj_database_url

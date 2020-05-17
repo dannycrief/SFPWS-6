@@ -1,12 +1,18 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.template import loader
+from django.views.decorators.csrf import csrf_exempt
+
 from .models import Book, Redaction, Authors
 from .forms import AuthorForm, BookForm
 from django.views.generic import CreateView, ListView
 from django.urls import reverse_lazy
 from django.forms import formset_factory
 from django.http.response import HttpResponseRedirect
+
+
+def index_redirect(request):
+    return redirect('/index', request)
 
 
 def index(request):
@@ -19,6 +25,7 @@ def index(request):
     return HttpResponse(template.render(biblio_data, request))
 
 
+@csrf_exempt
 def book_increment(request):
     if request.method == 'POST':
         book_id = request.POST['id']
@@ -35,6 +42,7 @@ def book_increment(request):
         return redirect('/index/')
 
 
+@csrf_exempt
 def book_decrement(request):
     if request.method == 'POST':
         book_id = request.POST['id']

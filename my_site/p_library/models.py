@@ -22,6 +22,7 @@ class Book(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
     redaction = models.ForeignKey('Redaction', on_delete=models.CASCADE, null=True, blank=True, related_name='books')
     reader = models.ForeignKey('Reader', on_delete=models.CASCADE, null=True, blank=True, related_name='books')
+    image = models.ImageField(upload_to='media', default='default.png')
 
     def __str__(self):
         return self.title
