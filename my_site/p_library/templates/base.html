@@ -14,14 +14,14 @@
 </head>
 <body>
 <nav>
-    <div class="nav-wrapper">
+    <div class="nav-wrapper purple darken-2">
         <a href="{% url 'my-library' %}" class="brand-logo">My Home Virtual Library</a>
         <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
             <li><a href="{% url 'author_list' %}">Authors</a></li>
             <li><a href="{% url 'author_create' %}">Add Author</a></li>
             <li><a href="#">Add Book</a></li>
-            <li><a href="#">Publishes</a></li>
+            <li><a href="{% url 'publishes' %}">Publishes</a></li>
         </ul>
     </div>
 </nav>
@@ -45,6 +45,21 @@
     <li><a class="subheader">Subheader</a></li>
     <li><a class="waves-effect" href="#">Third Link With Waves</a></li>
 </ul>
+
+<div class="preloader-wrapper big active">
+    <div class="spinner-layer spinner-blue">
+        <div class="circle-clipper left">
+            <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+            <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+            <div class="circle"></div>
+        </div>
+    </div>
+</div>
+
 <main>
     {% block index %}{% endblock %}
     {% block author_list %}{% endblock %}
@@ -53,13 +68,14 @@
     {% block manage_authors %}{% endblock %}
     {% block manage_books_authors %}{% endblock %}
 </main>
-<footer class="page-footer">
+
+<footer class="page-footer purple lighten-2">
     <div class="container">
         <div class="row">
             <div class="col l6 s12">
                 <h5 class="white-text">My Home Virtual Library</h5>
-                <p class="grey-text text-lighten-4">If you have any questions, please contact me in slack <b><i>@Stepan
-                    Kozurak</i></b>.</p>
+                <p class="grey-text text-lighten-4">
+                    If you have any questions, please contact me in slack <b>@<i>Stepan Kozurak</i></b>.</p>
             </div>
             <div class="col l4 offset-l2 s12">
                 <h5 class="white-text">Links</h5>

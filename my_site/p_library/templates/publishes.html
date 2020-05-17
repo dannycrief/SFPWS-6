@@ -1,15 +1,12 @@
 {% extends 'base.html' %}
 {% block publishes %}
-{% for redaction in redactions %}
-    <ul class="list-group">
-        <li class="list-group-item">
-            {{ redaction.name }}
-            <ul class="list-group">
+    {% for redaction in redactions %}
+        <ul class="collection with-header">
+            <li class="collection-header">
+                <h5>{{ redaction.name }}</h5>
                 {% for book in redaction.books.all %}
-                    <li class="list-group-item"> {{ book.title }}</li>
+                    <li class="collection-item">{{ book.title }}</li>
                 {% endfor %}
-            </ul>
-        </li>
-    </ul>
-{% endfor %}
+        </ul>
+    {% endfor %}
 {% endblock %}

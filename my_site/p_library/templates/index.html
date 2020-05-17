@@ -48,14 +48,14 @@
                     <form action="/index/book_increment/" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <input type="hidden" name="id" value="{{ book.id }}"/>
-                        <button class="btn waves-effect waves-light" type="submit" name="action" value="{{ book.id }}">
+                        <button class="btn purple lighten-2 waves-effect waves-light" type="submit" name="action" value="{{ book.id }}">
                             Increase
                         </button>
                     </form>
                     <form action="/index/book_decrement/" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         <input type="hidden" name="id" value="{{ book.id }}"/>
-                        <button class="btn waves-effect waves-light" type="submit" name="action" value="{{ book.id }}">
+                        <button class="btn purple lighten-2 waves-effect waves-light" type="submit" name="action" value="{{ book.id }}">
                             Decrease
                         </button>
                     </form>
