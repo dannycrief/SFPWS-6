@@ -15,17 +15,18 @@ Including another URLconf
 """
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from p_library import views
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', views.index),
+    path('index/', views.index, name='my-library'),
     path('index/book_increment/', views.book_increment),
     path('index/book_decrement/', views.book_decrement),
-    path('publishes/', views.redactions),
+    path('publishes/', views.redactions, name='publishes'),
+    path('authors/', include('p_library.urls')),
     path('', views.index_redirect),
 ]
 

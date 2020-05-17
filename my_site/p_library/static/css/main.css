@@ -1,0 +1,24 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    display: flex;
+    flex: 1 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.responsive-table tbody tr td img {
+    max-height: 50px;
+}
+
+input{
+    color: #fff!important;
+}
+
+form input {
+    text-align: center;
+}

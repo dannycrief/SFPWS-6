@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {#  bootstrap  #}
+    {#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"#}
+    {#          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">#}
+    {#  materializecss  #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <title>My Home Virtual Library</title>
+</head>
+<body>
+<nav>
+    <div class="nav-wrapper">
+        <a href="{% url 'my-library' %}" class="brand-logo">My Home Virtual Library</a>
+        <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="{% url 'author_list' %}">Authors</a></li>
+            <li><a href="{% url 'author_create' %}">Add Author</a></li>
+            <li><a href="#">Add Book</a></li>
+            <li><a href="#">Publishes</a></li>
+        </ul>
+    </div>
+</nav>
+
+<ul id="slide-out" class="sidenav">
+    <li>
+        <div class="user-view">
+            <div class="background">
+                <img src="{% static 'img/library.jpeg' %} " alt="Side background">
+            </div>
+            <a href="#"><img class="circle" src="{% static 'img/admin.png' %}" alt="Side User Photo"></a>
+            <a href="#"><span class="white-text name">User Library</span></a>
+            <a href="#"><span class="white-text email">user_email@gmail.com</span></a>
+        </div>
+    </li>
+    <li><a href="#"><i class="material-icons">library_books</i>My Library</a></li>
+    <li><a href="#">Second Link</a></li>
+    <li>
+        <div class="divider"></div>
+    </li>
+    <li><a class="subheader">Subheader</a></li>
+    <li><a class="waves-effect" href="#">Third Link With Waves</a></li>
+</ul>
+<main>
+    {% block index %}{% endblock %}
+    {% block author_list %}{% endblock %}
+    {% block publishes %}{% endblock %}
+    {% block edit_author %}{% endblock %}
+    {% block manage_authors %}{% endblock %}
+    {% block manage_books_authors %}{% endblock %}
+</main>
+<footer class="page-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">My Home Virtual Library</h5>
+                <p class="grey-text text-lighten-4">If you have any questions, please contact me in slack <b><i>@Stepan
+                    Kozurak</i></b>.</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                    <li>To see my code click
+                        <a class="grey-text text-lighten-3" href="https://github.com/dannycrief/my_site">
+                            here
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            © {% now "Y" %} All rights reserved.
+            <a class="grey-text text-lighten-4 right" href="#">Stepan Kozurak</a>
+        </div>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+{#<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"#}
+{#        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"#}
+{#        crossorigin="anonymous"></script>#}
+{#<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"#}
+{#        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"#}
+{#        crossorigin="anonymous"></script>#}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create multiple authors</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block manage_authors%}
 <form method="post">
     {% csrf_token %}
     {% for form in author_formset %}
@@ -13,5 +8,4 @@
     {% endfor %}
     <input type="submit" value="Save">
 </form>
-</body>
-</html>
+{% endblock %}

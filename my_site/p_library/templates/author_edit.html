@@ -1,14 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Форма создания и редактирования Авторов</title>
-</head>
-<body>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save">
-</form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block edit_author %}
+    <div class="container"
+         style="display: flex; justify-content: center; align-items: center;"
+    >
+        <div class="row"
+             style="width: 30rem;"
+        >
+            <div class="col s12 m12 l12">
+                <form method="post"
+                      style="display: flex; flex-direction: column; justify-content: center"
+                >
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit"
+                           value="Save"
+                           style="align-self: center; width: 6rem; color: #fff;"
+                           class="waves-effect waves-light btn-small"
+                    >
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
