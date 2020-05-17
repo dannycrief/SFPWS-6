@@ -1,0 +1,8 @@
+@media only screen and (max-width: 992px) {
+    table.responsive-table tbody tr {
+        max-width: 300px;
+    }
+    table.responsive-table td p{
+        max-width: 300px;
+    }
+}

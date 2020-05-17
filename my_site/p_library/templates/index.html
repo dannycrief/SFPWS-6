@@ -1,67 +1,77 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block index %}
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <table class="responsive-table striped">
+                    <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Book</th>
+                        <th>ISBN</th>
+                        <th>Description</th>
+                        <th>Year Release</th>
+                        <th>Author</th>
+                        <th>Country</th>
+                        <th>Copy Count</th>
+                        <th>Redaction</th>
+                        <th>Reader</th>
+                        <th>Change Count</th>
+                    </tr>
+                    </thead>
 
-    <table class="responsive-table striped">
-        <thead>
-        <tr>
-            <th>Image</th>
-            <th>Book</th>
-            <th>ISBN</th>
-            <th>Description</th>
-            <th>Year Release</th>
-            <th>Author</th>
-            <th>Country</th>
-            <th>Copy Count</th>
-            <th>Redaction</th>
-            <th>Reader</th>
-            <th>Change Count</th>
-        </tr>
-        </thead>
+                    <tbody>
+                    {% for book in books %}
+                        <tr>
+                            <td>
+                                <img src="{{ book.image.url }}"
+                                     alt="Book image"
+                                     style="max-width: 3rem"
+                                     class="materialboxed"
+                                >
+                            </td>
+                            <td>{{ book.title }}</td>
+                            <td>{{ book.ISBN }}</td>
+                            <td><p>{{ book.description }}</p></td>
+                            <td>{{ book.year_release }}</td>
+                            <td>{{ book.author.full_name }}</td>
+                            <td>{{ book.author.country }}</td>
+                            <td>{{ book.copy_count }}</td>
+                            <td>{{ book.redaction }}</td>
+                            <td>
+                                {% if book.reader %}
+                                    {{ book.reader }}
+                                {% else %}
+                                    Book is free
+                                {% endif %}
+                            </td>
+                            <td>
+                                <form action="/index/book_increment/" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="id" value="{{ book.id }}"/>
+                                    <button class="btn purple lighten-2 waves-effect waves-light" type="submit"
+                                            name="action"
+                                            value="{{ book.id }}">
+                                        Increase
+                                    </button>
+                                </form>
+                                <form action="/index/book_decrement/" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="id" value="{{ book.id }}"/>
+                                    <button class="btn purple lighten-2 waves-effect waves-light" type="submit"
+                                            name="action"
+                                            value="{{ book.id }}">
+                                        Decrease
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-        <tbody>
-        {% for book in books %}
-            <tr>
-                <td>
-                    <img src="{{ book.image.url }}"
-                         alt="Book image"
-                         style="max-width: 3rem"
-                         class="materialboxed"
-                    >
-                </td>
-                <td>{{ book.title }}</td>
-                <td>{{ book.ISBN }}</td>
-                <td>{{ book.description }}</td>
-                <td>{{ book.year_release }}</td>
-                <td>{{ book.author.full_name }}</td>
-                <td>{{ book.author.country }}</td>
-                <td>{{ book.copy_count }}</td>
-                <td>{{ book.redaction }}</td>
-                <td>
-                    {% if book.reader %}
-                        {{ book.reader }}
-                    {% else %}
-                        Book is free
-                    {% endif %}
-                </td>
-                <td>
-                    <form action="/index/book_increment/" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <input type="hidden" name="id" value="{{ book.id }}"/>
-                        <button class="btn purple lighten-2 waves-effect waves-light" type="submit" name="action" value="{{ book.id }}">
-                            Increase
-                        </button>
-                    </form>
-                    <form action="/index/book_decrement/" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <input type="hidden" name="id" value="{{ book.id }}"/>
-                        <button class="btn purple lighten-2 waves-effect waves-light" type="submit" name="action" value="{{ book.id }}">
-                            Decrease
-                        </button>
-                    </form>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 {% endblock %}
