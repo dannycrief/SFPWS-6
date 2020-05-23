@@ -19,10 +19,17 @@
         <a href="{% url 'my-library' %}" class="brand-logo">My Home Virtual Library</a>
         <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="{% url 'author_list' %}">Authors</a></li>
-            <li><a href="{% url 'author_create' %}">Add Author</a></li>
-            <li><a href="{% url 'author_book_create_many' %}">Add Book</a></li>
+            <li><a href="{% url 'p_library:author_list' %}">Authors</a></li>
+            <li><a href="{% url 'p_library:author_create' %}">Add Author</a></li>
+            <li><a href="{% url 'p_library:author_book_create_many' %}">Add Book</a></li>
             <li><a href="{% url 'publishes' %}">Publishes</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+            {% endif %}
+            <li><a href="{% url 'profile-page' %}">Profile</a></li>
         </ul>
     </div>
 </nav>
@@ -64,7 +71,12 @@
 
 
 <main>
-    {% block index %}{% endblock %}
+    {% block library %}{% endblock %}
+    {% block login-user %}{% endblock %}
+    {% block register-user %}{% endblock %}
+    {% block profile-user %}{% endblock %}
+    {% block profile-create %}{% endblock %}
+
     {% block author_list %}{% endblock %}
     {% block publishes %}{% endblock %}
     {% block edit_author %}{% endblock %}

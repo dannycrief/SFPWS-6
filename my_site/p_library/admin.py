@@ -1,5 +1,10 @@
 from django.contrib import admin
-from .models import Redaction, Book, Authors, Inspiration, Reader
+from .models import Redaction, Book, Authors, Inspiration, Reader, UserProfile
+
+
+@admin.register(UserProfile)
+class ProfileAdmin(admin.ModelAdmin):
+    pass
 
 
 @admin.register(Book)

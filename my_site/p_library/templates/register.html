@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block register-user %}
+    <h1>Register</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_ul }}
+        <input type="submit" value="Register">
+    </form>
+{% endblock %}

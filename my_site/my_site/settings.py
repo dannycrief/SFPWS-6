@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from django.urls import reverse_lazy
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -26,18 +28,24 @@ SECRET_KEY = '5l=0^8_is!)l4-$9eq_%#(861oaum#u6jri3wd)&z4hulxw_z&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['warm-tor-47339.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['warm-tor-47339.herokuapp.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'p_library',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
+
 ]
 
 MIDDLEWARE = [
@@ -51,6 +59,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'my_site.urls'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 TEMPLATES = [
     {
@@ -119,3 +132,10 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
+
+LOGIN_REDIRECT_URL = reverse_lazy('my-library')
+LOGOUT_REDIRECT_URL = reverse_lazy('p_library:login')
+
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+SITE_ID = 1

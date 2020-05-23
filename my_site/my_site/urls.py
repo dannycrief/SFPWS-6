@@ -18,15 +18,22 @@ from django.contrib import admin
 from django.urls import path, include
 from p_library import views
 from django.conf.urls.static import static
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from allauth.account.views import login, logout, signup
+from p_library.views import profile, CreateUserProfile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', views.index, name='my-library'),
+    path('library/', views.index, name='my-library'),
     path('index/book_increment/', views.book_increment),
     path('index/book_decrement/', views.book_decrement),
     path('publishes/', views.redactions, name='publishes'),
     path('authors/', include('p_library.urls')),
+    path('accounts/', include('allauth.urls')),
+    path('login/', login, name='login'),
+    path('logout/', logout, name='logout'),
+    path('register/', signup, name='register'),
+    path('profile/', profile, name='profile-page'),
+    path('profile-create/', CreateUserProfile.as_view(), name='profile-create'),
     path('', views.index_redirect),
 ]
 

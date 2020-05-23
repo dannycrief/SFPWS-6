@@ -1,16 +1,16 @@
-{% extends 'base.html' %}
-{% block manage_books_authors%}
-<form method="post">
-    {% csrf_token %}
-    {% for form in author_formset %}
-        {{ form.as_ul }}
-        <br>
-    {% endfor %}
+{% extends 'author-base.html' %}
+{% block manage_books_authors %}
+    <form method="post">
+        {% csrf_token %}
+        {% for form in author_formset %}
+            {{ form.as_ul }}
+            <br>
+        {% endfor %}
 
-    {% for form in book_formset %}
-        {{ form.as_ul }}
-        <br>
-    {% endfor %}
-    <input type="submit" value="Сохранить"/>
-</form>
+        {% for form in book_formset %}
+            {{ form.as_ul }}
+            <br>
+        {% endfor %}
+        <input type="submit" value="Сохранить"/>
+    </form>
 {% endblock %}

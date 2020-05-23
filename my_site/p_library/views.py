@@ -2,21 +2,68 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
-
-from .models import Book, Redaction, Authors
-from .forms import AuthorForm, BookForm
-from django.views.generic import CreateView, ListView
+from .models import Book, Redaction, Authors, UserProfile
+from .forms import AuthorForm, BookForm, ProfileCreationForm
+from django.views.generic import CreateView, ListView, FormView
 from django.urls import reverse_lazy
 from django.forms import formset_factory
 from django.http.response import HttpResponseRedirect
+from allauth.socialaccount.models import SocialAccount
 
 
 def index_redirect(request):
-    return redirect('/index', request)
+    return redirect('library/', request)
+
+
+def profile(request):
+    context = {}
+    if request.user.is_authenticated:
+        context['username'] = request.user.username
+        try:
+            context['github_url'] = SocialAccount.objects.get(
+                provider='github',
+                user=request.user
+            ).extra_data['html_utl']
+            try:
+                context['age'] = SocialAccount.objects.get(
+                    provider='github',
+                    user=request.user
+                ).extra_data['age']
+            except:
+                context['age'] = ''
+        except:
+            context['age'] = UserProfile.objects.get(user=request.user).age
+            context['github_url'] = ''
+    return render(request, 'profile.html', context)
+
+
+class CreateUserProfile(FormView):
+    form_class = ProfileCreationForm
+    template_name = 'profile-create.html'
+    success_url = reverse_lazy('p_library:profile-page')
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.user.is_anonymous:
+            return HttpResponseRedirect(reverse_lazy('p_library:login'))
+        return super(CreateUserProfile, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        instance = form.save(commit=False)
+        try:
+            data = SocialAccount.objects.get(
+                provider='github',
+                user=self.request.user
+            )
+            data.extra_data['age'] = str(form['age'].value())
+            data.save()
+        except:
+            instance.user = self.request.user
+            instance.save()
+        return super(CreateUserProfile, self).form_valid(form)
 
 
 def index(request):
-    template = loader.get_template('index.html')
+    template = loader.get_template('library.html')
     books = Book.objects.all()
     biblio_data = {
         "title": "my library",

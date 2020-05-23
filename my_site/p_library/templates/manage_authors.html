@@ -1,11 +1,11 @@
-{% extends 'base.html' %}
-{% block manage_authors%}
-<form method="post">
-    {% csrf_token %}
-    {% for form in author_formset %}
-        {{ form.as_ul }}
-        <br>
-    {% endfor %}
-    <input type="submit" value="Save">
-</form>
+{% extends 'author-base.html' %}
+{% block manage_authors %}
+    <form method="post">
+        {% csrf_token %}
+        {% for form in author_formset %}
+            {{ form.as_ul }}
+            <br>
+        {% endfor %}
+        <input type="submit" value="Save">
+    </form>
 {% endblock %}
