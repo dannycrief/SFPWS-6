@@ -5,7 +5,11 @@
         <h1>
             Hello, {{ username }}!
         </h1>
-        <p>I know your: <a href="{{ github_url }}">GitHub</a> profile!</p>
-        <p>You are {{ age }} years old</p>
+        {% if github_url %}
+            <p>I know your: <a href="{{ github_url }}">GitHub</a> profile!</p>
+        {% endif %}
+        {% if age %}
+            <p>You are {{ age }} years old</p>
+        {% endif %}
     {% endif %}
 {% endblock %}
