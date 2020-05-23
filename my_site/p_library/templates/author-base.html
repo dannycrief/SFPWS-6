@@ -24,12 +24,14 @@
             <li><a href="{% url 'p_library:author_book_create_many' %}">Add Book</a></li>
             <li><a href="{% url 'publishes' %}">Publishes</a></li>
             {% if user.is_authenticated %}
+                <li><a href="{% url 'profile-page' %}">Profile</a></li>
+                <li><a href="{% url 'profile-create' %}">Modify profile</a></li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
             {% else %}
                 <li><a href="{% url 'login' %}">Login</a></li>
                 <li><a href="{% url 'register' %}">Register</a></li>
             {% endif %}
-            <li><a href="{% url 'profile-page' %}">Profile</a></li>
+
         </ul>
     </div>
 </nav>

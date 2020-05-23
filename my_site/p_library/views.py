@@ -23,7 +23,7 @@ def profile(request):
             context['github_url'] = SocialAccount.objects.get(
                 provider='github',
                 user=request.user
-            ).extra_data['html_utl']
+            ).extra_data['html_url']
             try:
                 context['age'] = SocialAccount.objects.get(
                     provider='github',
@@ -32,7 +32,6 @@ def profile(request):
             except:
                 context['age'] = ''
         except:
-            context['age'] = UserProfile.objects.get(user=request.user).age
             context['github_url'] = ''
     return render(request, 'profile.html', context)
 
@@ -40,11 +39,11 @@ def profile(request):
 class CreateUserProfile(FormView):
     form_class = ProfileCreationForm
     template_name = 'profile-create.html'
-    success_url = reverse_lazy('p_library:profile-page')
+    success_url = reverse_lazy('profile-page')
 
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.is_anonymous:
-            return HttpResponseRedirect(reverse_lazy('p_library:login'))
+            return HttpResponseRedirect(reverse_lazy('login'))
         return super(CreateUserProfile, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):

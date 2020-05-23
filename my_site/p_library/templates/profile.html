@@ -1,5 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'author-base.html' %}
 {% load static %}
 {% block profile-user %}
-    <h1>Profile</h1>
+    {% if username %}
+        <h1>
+            Hello, {{ username }}!
+        </h1>
+        <p>I know your: <a href="{{ github_url }}">GitHub</a> profile!</p>
+        <p>You are {{ age }} years old</p>
+    {% endif %}
 {% endblock %}

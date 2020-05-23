@@ -1,5 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'author-base.html' %}
 {% load static %}
 {% block profile-create %}
-    <h1>Profile</h1>
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <input type="submit" value="Modify profile">
+</form>
 {% endblock %}
