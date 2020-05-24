@@ -134,6 +134,8 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
+
 LOGIN_REDIRECT_URL = reverse_lazy('my-library')
 LOGOUT_REDIRECT_URL = reverse_lazy('p_library:login')
 

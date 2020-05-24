@@ -19,19 +19,16 @@ def profile(request):
     context = {}
     if request.user.is_authenticated:
         context['username'] = request.user.username
-        try:
-            context['github_url'] = SocialAccount.objects.get(
+        if SocialAccount.objects.get(provider='github', user=request.user):
+            git_account = SocialAccount.objects.get(
                 provider='github',
                 user=request.user
-            ).extra_data['html_url']
-            try:
-                context['age'] = SocialAccount.objects.get(
-                    provider='github',
-                    user=request.user
-                ).extra_data['age']
-            except:
-                context['age'] = ''
-        except:
+            )
+            context['github_url'] = git_account.extra_data['html_url']
+            # context['age'] = git_account.extra_data['age']
+        else:
+            sys_user = UserProfile.objects.get(user=request.user)
+            context['age'] = sys_user.age
             context['github_url'] = ''
     return render(request, 'profile.html', context)
 
@@ -47,17 +44,22 @@ class CreateUserProfile(FormView):
         return super(CreateUserProfile, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        instance = form.save(commit=False)
         try:
-            data = SocialAccount.objects.get(
-                provider='github',
+            if SocialAccount.objects.get(provider='github', user_id=self.request.user.id):
+                git_age = SocialAccount.objects.get(
+                    provider='github',
+                    user=self.request.user
+                )
+                git_age.extra_data['age'] = str(form['age'].value())
+                git_age.save()
+        except:
+            user_age = UserProfile.objects.get(
                 user=self.request.user
             )
-            data.extra_data['age'] = str(form['age'].value())
-            data.save()
-        except:
-            instance.user = self.request.user
-            instance.save()
+            print(user_age.age)
+            user_age.age = str(form['age'].value())
+            user_age.save()
+
         return super(CreateUserProfile, self).form_valid(form)
 
 
