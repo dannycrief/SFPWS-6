@@ -1,15 +1,23 @@
 {% extends 'author-base.html' %}
 {% load static %}
 {% block profile-user %}
-    {% if username %}
-        <h1>
-            Hello, {{ username }}!
-        </h1>
-        {% if github_url %}
-            <p>I know your: <a href="{{ github_url }}">GitHub</a> profile!</p>
-        {% endif %}
-        {% if age %}
-            <p>You are {{ age }} years old</p>
-        {% endif %}
-    {% endif %}
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12"
+                 style="display:flex; flex-direction: column; align-items: center;"
+            >
+                {% if username %}
+                    <h1>
+                        Hello, {{ username }}!
+                    </h1>
+                    {% if github_url %}
+                        <p>I know your: <a href="{{ github_url }}">GitHub</a> profile!</p>
+                    {% endif %}
+                    {% if age %}
+                        <p>You are {{ age }} years old</p>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

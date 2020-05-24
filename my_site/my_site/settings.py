@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'p_library',
+    'crispy_forms',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -139,3 +140,5 @@ LOGOUT_REDIRECT_URL = reverse_lazy('p_library:login')
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 SITE_ID = 1
+
+CRISPY_TEMPLATE_PACK = 'materialize'
